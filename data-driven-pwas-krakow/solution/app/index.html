@@ -24,7 +24,7 @@ limitations under the License.
   <meta charset="utf-8">
 
   <!-- Set title -->
-  <title>My site</title>
+  <title>Dashboardr</title>
 
   <!-- Request fonts and styles -->
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet" type="text/css">
@@ -52,16 +52,15 @@ limitations under the License.
 </head>
 
 <body>
-  <div class="header">
+  <header>
     <ul class="navbar">
-      <li><a href="#home">Home</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="#home">Dashboard</a></li>
       <li style="float:right; padding: 12px 16px"><img src="images/icon/icon.svg" alt="profile icon" /></li>
     </ul>
-  </div>
+  </header>
 
-  <article>
-    <h1>My site</h1>
+  <main>
+    <h1>Dashboardr</h1>
 
     <picture id="banner">
       <source media="(min-width: 750px)" srcset="images/still_life-1600_large_2x.jpg 2x, images/still_life-800_large_1x.jpg" />
@@ -71,37 +70,43 @@ limitations under the License.
 
     <section id="post">
 
-      <h2>Welcome</h2>
-
       <p class="lead">
         I love cheese, especially manchego swiss. ☺ Fromage queso jarlsberg cheesy
         feet emmental cottage cheese camembert de normandie bocconcini. Cottage cheese
         everyone loves cauliflower cheese rubber cheese squirty cheese halloumi cow
         fondue. Bocconcini cheese and biscuits everyone loves fondue red leicester
         st. agur blue cheese rubber cheese ricotta. Cheesy grin mozzarella.
-      </p></br></br>
+      </p>
+
+      <br><br>
+
+      <div id="offline" style="visibility: hidden; background-color: red">
+        <p>You're offline and viewing stored data</p>
+      </div>
+      <div id="no-data" style="visibility: hidden; background-color: red">
+        <p>You're offline and local data is unavailable</p>
+      </div>
+
+      <div id="dynamic-content-container" style="background-color: #00bcd4"></div>
+      <!-- todo, probably make this a list with flexbox? -->
+
+      <br><br>
+
+      <h2>Current Projects</h2>
 
       <div class="links-lists">
         <div class="list">
-          <p class="list-title">Blog Posts</p>
-          <a href="pages/post1.html" class="post-link">Horses in a field</a>
-          <a href="pages/post2.html" class="post-link">Volt sign</a>
-          <a href="pages/post3.html" class="post-link">Cockatoos on the deck</a>
-          <a href="pages/post5.html" class="post-link">Non-existent post</a>
-        </div><br>
-        <div class="list">
-          <p class="list-title">News Articles</p>
+          <p class="list-title">Company News Articles</p>
           <a href="pages/article1.html" class="post-link">Article 1</a>
           <a href="pages/article2.html" class="post-link">Article 2</a>
           <a href="pages/article3.html" class="post-link">Article 3</a>
-          <a href="pages/article4.html" class="post-link">Article 4</a>
-          <a href="pages/article5.html" class="post-link">Non-existent article</a>
+          <a href="pages/article4.html" class="post-link">Non-existent article</a>
         </div>
       </div>
 
     </section>
 
-  </article>
+  </main>
 
   <footer>
 
@@ -125,6 +130,12 @@ limitations under the License.
           console.log('Service Worker registration failed: ', err);
         });
     }
+  </script>
+
+  <script src="js/idb-promised.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    // main.js? abstract more?
   </script>
 
 </body>

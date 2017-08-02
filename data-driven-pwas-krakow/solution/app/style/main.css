@@ -56,6 +56,7 @@ h1 a {
   white-space: nowrap;
 }
 
+main,
 article {
   align-items: center;
   display: flex;
@@ -99,10 +100,6 @@ h1 {
   font-size: 6vw;
   font-weight: 500;
   margin: 0 0 1em 0;
-}
-
-header:hover h1 {
-  color: #3d85c6;
 }
 
 h2 {
@@ -166,13 +163,17 @@ svg#logo {
   width: 6vw;
 }
 
+header:hover h1 {
+  color: #3d85c6;
+}
+
 header:hover svg#logo {
   fill: #3d85c6;
   -webkit-filter: drop-shadow(3px 3px 3px #ddd);
   filter: drop-shadow(3px 3px 3px #ddd);
 }
 
-.header {
+header {
   width: 100%;
   margin: 0 0 6vh 0;
 }
