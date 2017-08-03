@@ -8,7 +8,7 @@ workboxSW.precache([
   },
   {
     "url": "index.html",
-    "revision": "ed53e8af6422515043f447562053fdf6"
+    "revision": "5c5bf0f67654479e6bbba3d921dbdf5d"
   },
   {
     "url": "pages/offline.html",
@@ -63,13 +63,23 @@ workboxSW.router.registerRoute('/**/images/icon/*',
   })
 );
 
-// TODO - remove articles?
-// var articleHandler = workboxSW.strategies.networkFirst({
-//   cacheName: 'articles-cache',
-//   cacheExpiration: {
-//     maxEntries: 50
-//   }
-// });
+var articleHandler = workboxSW.strategies.networkFirst({
+  cacheName: 'articles-cache',
+  cacheExpiration: {
+    maxEntries: 50
+  }
+});
+
+workboxSW.router.registerRoute('/**/pages/article*.html', function(event) {
+  return articleHandler.handle(event).then(function(response) {
+    if (!response) {
+      return caches.match('pages/offline.html');
+    } else if (response.status === 404) {
+      return caches.match('pages/404.html');
+    }
+    return response;
+  });
+});
 
 // TODO
 workboxSW.router.registerRoute('/js/main.js',
