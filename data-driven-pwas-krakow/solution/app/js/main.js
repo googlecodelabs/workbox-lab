@@ -1,8 +1,13 @@
 let container = document.getElementById('dynamic-content-container');
+let add = document.getElementById('add');
+let cityInput = document.getElementById('city');
+let titleInput = document.getElementById('title');
 let offlineMessage = document.getElementById('offline');
 let noDataMessage = document.getElementById('no-data');
 let dataSavedMessage = document.getElementById('data-saved');
 let saveErrorMessage = document.getElementById('save-error');
+
+add.addEventListener('click', addProject);
 
 const dbPromise = createIndexedDB();
 
@@ -24,6 +29,21 @@ getLocalChangeRequests() // get offline changes from IDB
   });
 });
 
+/* TODO */
+
+function addProject() {
+  let data = {
+    url: 'api/add',
+    city: cityInput.value,
+    title: titleInput.value,
+    id: Date.now()
+  };
+  postChangeRequest(data)
+  .catch(err => {
+    saveChangeRequestLocally(data);
+  }); //TODO then add to UI
+}
+
 /* Network functions */
 
 function getServerData() {
@@ -35,22 +55,26 @@ function getServerData() {
   });
 }
 
+function postChangeRequest(data) {
+  let url = data.url;
+  let headers = new Headers({'Content-Type': 'application/json'});
+  let body = JSON.stringify(data);
+  return fetch(url, {
+    method: 'POST',
+    headers: headers,
+    body: body
+  }).then(response => {
+    if (!response.ok) {
+      throw Error(response.statusText);
+    }
+    console.log(response);
+    deleteLocalChangeRequest(data.id); // TODO this is trying to delete even when online
+  });
+}
+
 function postChangeRequests(localChangeRequests) {
   return Promise.all(
-    localChangeRequests.map(changeRequest => {
-      let url = changeRequest.url;
-      let headers = new Headers({'Content-Type': 'application/json'});
-      let body = JSON.stringify({id: changeRequest.id});
-      return fetch(url, {
-        method: 'POST',
-        headers: headers,
-        body: body
-      }).then(response => {
-        if (!response.ok) {
-          throw Error(response.statusText);
-        }
-      });
-    })
+    localChangeRequests.map(postChangeRequest)
   );
 }
 
@@ -148,6 +172,17 @@ function getLocalChangeRequests() {
   });
 }
 
+function deleteLocalChangeRequest(key) {
+  if (!('indexedDB' in window)) {return null;}
+  return dbPromise.then(db => {
+    let tx = db.transaction('localChanges', 'readwrite');
+    let store = tx.objectStore('localChanges');
+    store.delete(key);
+    return tx.complete;
+  });
+  // TODO then / catch?
+}
+
 function saveChangeRequestLocally(changeRequest) {
   if (!('indexedDB' in window)) {return null;}
   dbPromise.then(db => {
@@ -164,37 +199,3 @@ function saveChangeRequestLocally(changeRequest) {
     console.warn('Unable to save change offline!', err);
   });
 }
-
-// // for each card, add button w/ listener
-// addEventListener('click', e => {
-//   fetch('api/update/', {
-//     method: 'POST',
-//     body: JSON.stringify({
-//       id: //get id from card,
-//       notes: // get note input value
-//     });
-//   })
-// });
-
-// fetch('/api/update', {
-//      headers: {
-//        'Content-Type': 'application/json'
-//      },
-//      method: 'POST',
-//      body: JSON.stringify({
-//        title: 'Opela',
-//        notes: 'UPDATED NOTE!!!!!'
-//      })
-//    }).then(response => {
-//      console.log(response);
-//      return response.text();
-//    }).then(text => {
-//      console.log(text);
-//    });
-
-// TODO
-// if (!('indexedDB' in window)) {
-//   console.console.warn();('This browser doesn\'t support IndexedDB');
-//   // update UI TODO
-//   return;
-// }
