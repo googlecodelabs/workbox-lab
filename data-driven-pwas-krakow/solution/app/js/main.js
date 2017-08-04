@@ -47,7 +47,7 @@ function addProject() {
 /* Network functions */
 
 function getServerData() {
-  return fetch('api/data.json').then(response => {
+  return fetch('api/getAll').then(response => {
     if (!response.ok) {
       throw Error(response.statusText);
     }
@@ -150,10 +150,13 @@ function saveProjectsLocally(projectsData) {
   dbPromise.then(db => {
     let tx = db.transaction('projects', 'readwrite');
     let store = tx.objectStore('projects');
-    projectsData.forEach(function(project) {
-      store.put(project);
-    });
-    return tx.complete;
+    // projectsData.forEach(function(project) {
+    //   store.put(project);
+    // });
+    return Promise.all(projectsData.map(project => {
+      return store.put(project);
+    }));
+    // return tx.complete;
   }).then(() => {
     // TODO - still ran this even when PUT failed...
     messageDataSaved();
