@@ -4,7 +4,7 @@ let noDataWarning = document.getElementById('no-data');
 const dbPromise = createIndexedDB();
 
 // TODO change to getAll
-fetch('api/data.json')
+fetch('api/getAll')
 .then(readResponseAsJson)
 .then(dataFromNetwork => {
   // display data on page

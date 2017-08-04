@@ -1,9 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const sqlite3 = require('sqlite3').verbose();
+const fs = require('fs');
 const app = express();
-
-var db = new sqlite3.Database('database.sqlite');
 
 // This serves static files from the specified directory
 app.use(express.static(__dirname + '/app'));
@@ -11,43 +9,74 @@ app.use(express.static(__dirname + '/app'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.get(['/', '/index.html'], function(req, res) {
+app.get(['/', '/index.html'], (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
 
-app.get('/api/getAll', function(req, res) {
-  db.all('SELECT * FROM projects', function(err, rows) {
+app.get('/api/getAll', (req, res) => {
+  let options = {
+    root: __dirname + '/app/data/'
+  };
+
+  const fileName = 'events.json';
+  res.sendFile(fileName, options, (err) => {
     if (err) {
-      res.send('there was an error');
+      res.sendStatus(500);
       return;
     }
-    res.send(rows);
   });
 });
 
-app.post('/api/update', function(req, res) {
-  var title = req.body.title;
-  var notes = req.body.notes;
-  db.run('UPDATE projects SET notes = ? WHERE title = ?', [notes, title], function(err) {
+app.post('/api/add', (req, res) => {
+  let jsonFile = __dirname + '/app/data/events.json';
+  let newEvent = req.body;
+  fs.readFile(jsonFile, (err, data) => {
     if (err) {
-      console.log('there was an error', err);
-    }
-    if (this.changes == 0) {
-      res.status(500).send('Database was not updated');
+      res.sendStatus(500);
       return;
     }
-    res.send('success!');
+    let events = JSON.parse(data);
+    events.push(newEvent);
+    let eventsJson = JSON.stringify(events, null, 2);
+    fs.writeFile(jsonFile, eventsJson, err => {
+      if (err) {
+        res.sendStatus(500);
+        return;
+      }
+      res.sendStatus(200);
+    });
   });
 });
 
-app.post('/api/add', function(req, res) {
-  
+app.post('/api/delete', (req, res) => {
+  let jsonFile = __dirname + '/app/data/events.json';
+  let id = req.body.id;
+  fs.readFile(jsonFile, (err, data) => {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+    let events = JSON.parse(data);
+    let eventToDelete = events.find((event) => event.id == id);
+    let index = events.indexOf(eventToDelete);
+    events.splice(index, 1);
+
+    let eventsJson = JSON.stringify(events, null, 2);
+
+    fs.writeFile(jsonFile, eventsJson, err => {
+      if (err) {
+        res.sendStatus(500);
+        return;
+      }
+      res.sendStatus(200);
+    });
+  });
 });
 
-const server = app.listen(8081, function() {
+const server = app.listen(8081, () => {
 
   const host = server.address().address;
   const port = server.address().port;
 
-  console.log('Example app listening at http://%s:%s', host, port);
+  console.log('App listening at http://%s:%s', host, port);
 });
