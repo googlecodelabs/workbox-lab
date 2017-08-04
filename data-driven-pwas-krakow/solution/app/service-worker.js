@@ -8,7 +8,7 @@ workboxSW.precache([
   },
   {
     "url": "index.html",
-    "revision": "5c5bf0f67654479e6bbba3d921dbdf5d"
+    "revision": "67baf5c80a8ea4ddfc4a49ad1f4d4220"
   },
   {
     "url": "pages/offline.html",
@@ -21,6 +21,10 @@ workboxSW.precache([
   {
     "url": "js/idb-promised.js",
     "revision": "d2ae9f6bf666b5da4f4b221dec8defa1"
+  },
+  {
+    "url": "js/main.js",
+    "revision": "bba1fb602f99a0adea57be1db05d1ff5"
   }
 ]);
 
@@ -63,15 +67,15 @@ workboxSW.router.registerRoute('/**/images/icon/*',
   })
 );
 
-var articleHandler = workboxSW.strategies.networkFirst({
+let articleHandler = workboxSW.strategies.networkFirst({
   cacheName: 'articles-cache',
   cacheExpiration: {
     maxEntries: 50
   }
 });
 
-workboxSW.router.registerRoute('/**/pages/article*.html', function(event) {
-  return articleHandler.handle(event).then(function(response) {
+workboxSW.router.registerRoute('/**/pages/article*.html', event => {
+  return articleHandler.handle(event).then(response => {
     if (!response) {
       return caches.match('pages/offline.html');
     } else if (response.status === 404) {

@@ -25,23 +25,9 @@ app.get('/api/getAll', function(req, res) {
   });
 });
 
-app.post('/api/update', function(req, res) {
-  var title = req.body.title;
-  var notes = req.body.notes;
-  db.run('UPDATE projects SET notes = ? WHERE title = ?', [notes, title], function(err) {
-    if (err) {
-      console.log('there was an error', err);
-    }
-    if (this.changes == 0) {
-      res.status(500).send('Database was not updated');
-      return;
-    }
-    res.send('success!');
-  });
-});
-
 app.post('/api/add', function(req, res) {
-  
+  res.send('test success');
+  res.status(500).send('test failure');
 });
 
 const server = app.listen(8081, function() {

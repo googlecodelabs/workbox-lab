@@ -80,15 +80,22 @@ limitations under the License.
 
       <br><br>
 
+      <!-- TODO display none, rather than visibility -->
       <div id="offline" style="visibility: hidden; background-color: red">
         <p>You're offline and viewing stored data</p>
       </div>
       <div id="no-data" style="visibility: hidden; background-color: red">
         <p>You're offline and local data is unavailable</p>
       </div>
+      <div id="data-saved" style="visibility: hidden; background-color: green">
+        <p>This data was saved for offline mode!</p>
+      </div>
+      <div id="save-error" style="visibility: hidden; background-color: red">
+        <p>This data couldn't be saved offline :(</p>
+      </div>
 
+      <!-- TODO, probably make this a list with flexbox? -->
       <div id="dynamic-content-container" style="background-color: #00bcd4"></div>
-      <!-- todo, probably make this a list with flexbox? -->
 
       <br><br>
 
