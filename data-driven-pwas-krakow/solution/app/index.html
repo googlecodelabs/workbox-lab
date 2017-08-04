@@ -62,57 +62,38 @@ limitations under the License.
   <main>
     <h1>Dashboardr</h1>
 
-    <picture id="banner">
+    <!-- <picture id="banner">
       <source media="(min-width: 750px)" srcset="images/still_life-1600_large_2x.jpg 2x, images/still_life-800_large_1x.jpg" />
       <source media="(min-width: 500px)" srcset="images/still_life_medium.jpg" />
       <img src="images/still_life_small.jpg" alt="Vase, fruit bowl and other objects on a cupboad">
-    </picture>
+    </picture> -->
 
     <section id="post">
 
-      <p class="lead">
+      <!-- <p class="lead">
         I love cheese, especially manchego swiss. ☺ Fromage queso jarlsberg cheesy
         feet emmental cottage cheese camembert de normandie bocconcini. Cottage cheese
         everyone loves cauliflower cheese rubber cheese squirty cheese halloumi cow
         fondue. Bocconcini cheese and biscuits everyone loves fondue red leicester
         st. agur blue cheese rubber cheese ricotta. Cheesy grin mozzarella.
-      </p>
+      </p> -->
+
+      <br>
+
+      <h2>Current Events</h2>
+
+      <br>
+
+      <p id="offline" style="display: none; background-color: red">You're offline and viewing stored data</p>
+      <p id="no-data" style="display: none; background-color: red">You're offline and local data is unavailable</p>
+      <p id="data-saved" style="display: none; background-color: green">This data was saved for offline mode!</p>
+      <p id="save-error" style="display: none; background-color: red">This data couldn't be saved offline :(</p>
+
+      <ul id="container" style="background-color: #00bcd4"></ul>
 
       <br><br>
 
-      <!-- TODO display none, rather than visibility -->
-      <div id="offline" style="visibility: hidden; background-color: red">
-        <p>You're offline and viewing stored data</p>
-      </div>
-      <div id="no-data" style="visibility: hidden; background-color: red">
-        <p>You're offline and local data is unavailable</p>
-      </div>
-      <div id="data-saved" style="visibility: hidden; background-color: green">
-        <p>This data was saved for offline mode!</p>
-      </div>
-      <div id="save-error" style="visibility: hidden; background-color: red">
-        <p>This data couldn't be saved offline :(</p>
-      </div>
-
-      <!-- TODO, probably make this a list with flexbox? -->
-      <div id="dynamic-content-container" style="background-color: #00bcd4"></div>
-
-      <h3>Add new project</h3>
-      <!-- TODO use FormData? -->
-      <!-- TODO hash causing issues -->
-      <!-- <form id="add" action="#" method="post"> -->
-        <label for="city">City:</label>
-        <input id="city" type="text" name="city" value="temp city">
-        <label for="title">Title:</label>
-        <input id="title" type="text" name="title" value="temp title">
-        <button id ="add" type="submit" name="button">add</button>
-      <!-- </form> -->
-
-      <br><br>
-
-      <h2>Current Projects</h2>
-
-      <div class="links-lists">
+      <!-- <div class="links-lists">
         <div class="list">
           <p class="list-title">Company News Articles</p>
           <a href="pages/article1.html" class="post-link">Article 1</a>
@@ -120,7 +101,7 @@ limitations under the License.
           <a href="pages/article3.html" class="post-link">Article 3</a>
           <a href="pages/article4.html" class="post-link">Non-existent article</a>
         </div>
-      </div>
+      </div> -->
 
     </section>
 
@@ -152,9 +133,6 @@ limitations under the License.
 
   <script src="js/idb-promised.js"></script>
   <script src="js/main.js"></script>
-  <script>
-    // main.js? abstract more?
-  </script>
 
 </body>
 </html>
