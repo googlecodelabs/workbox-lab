@@ -1,0 +1,72 @@
+function addProject() {
+  let data = {
+    url: 'api/add',
+    city: cityInput.value,
+    title: titleInput.value,
+    id: Date.now()
+  };
+  postChangeRequest(data)
+  .catch(err => {
+    saveChangeRequestLocally(data);
+  }); //TODO then add to UI
+}
+
+function postChangeRequest(data) {
+  let url = data.url;
+  let headers = new Headers({'Content-Type': 'application/json'});
+  let body = JSON.stringify(data);
+  return fetch(url, {
+    method: 'POST',
+    headers: headers,
+    body: body
+  }).then(response => {
+    if (!response.ok) {
+      throw Error(response.statusText);
+    }
+    console.log(response);
+    deleteLocalChangeRequest(data.id); // TODO this is trying to delete even when online
+  });
+}
+
+function postChangeRequests(localChangeRequests) {
+  return Promise.all(
+    localChangeRequests.map(postChangeRequest)
+  );
+}
+
+function getLocalChangeRequests() {
+  if (!('indexedDB' in window)) {return null;}
+  return dbPromise.then(db => {
+    let tx = db.transaction('localChanges', 'readonly');
+    let store = tx.objectStore('localChanges');
+    return store.getAll();
+  });
+}
+
+function deleteLocalChangeRequest(key) {
+  if (!('indexedDB' in window)) {return null;}
+  return dbPromise.then(db => {
+    let tx = db.transaction('localChanges', 'readwrite');
+    let store = tx.objectStore('localChanges');
+    store.delete(key);
+    return tx.complete;
+  });
+  // TODO then / catch?
+}
+
+function saveChangeRequestLocally(changeRequest) {
+  if (!('indexedDB' in window)) {return null;}
+  dbPromise.then(db => {
+    let tx = db.transaction('localChanges', 'readwrite');
+    let store = tx.objectStore('localChanges');
+    console.log('Adding local change:', changeRequest.url, changeRequest.id);
+    store.add(changeRequest);
+    return tx.complete;
+  }).then(() => {
+    // TODO update UI
+    console.log('Change saved for offline!');
+  }).catch(err => {
+    // could update UI here to inform user
+    console.warn('Unable to save change offline!', err);
+  });
+}
