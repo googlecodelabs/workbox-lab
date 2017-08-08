@@ -3,6 +3,9 @@ let offlineMessage = document.getElementById('offline');
 let noDataMessage = document.getElementById('no-data');
 let dataSavedMessage = document.getElementById('data-saved');
 let saveErrorMessage = document.getElementById('save-error');
+let addEventButton = document.getElementById('add-event-button');
+
+addEventButton.addEventListener('click', addAndPostEvent);
 
 const dbPromise = createIndexedDB();
 
@@ -124,5 +127,24 @@ function saveEventDataLocally(events) {
       return store.put(event);
     }));
     // return tx.complete; // TODO investigate
+  });
+}
+
+function addAndPostEvent() {
+  let data = {
+    id: Date.now(),
+    title: document.getElementById('title').value,
+    date: document.getElementById('date').value,
+    city: document.getElementById('city').value,
+    note: document.getElementById('note').value
+  };
+  updateUI([data]);
+  saveEventDataLocally([data]);
+  let headers = new Headers({'Content-Type': 'application/json'});
+  let body = JSON.stringify(data);
+  return fetch('api/add', {
+    method: 'POST',
+    headers: headers,
+    body: body
   });
 }

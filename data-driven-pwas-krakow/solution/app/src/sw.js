@@ -1,4 +1,5 @@
 importScripts('workbox-sw.prod.v1.1.0.js');
+importScripts('workbox-background-sync.prod.v1.2.0.js');
 
 const workboxSW = new WorkboxSW();
 workboxSW.precache([]);
@@ -60,9 +61,26 @@ workboxSW.router.registerRoute('/**/pages/article*.html', function(event) {
   });
 });
 
-// TODO
-workboxSW.router.registerRoute('/js/main.js',
-  workboxSW.strategies.networkFirst({
-    cacheName: 'logic-cache'
-  })
+// workboxSW.router.registerRoute('/js/main.js',
+//   workboxSW.strategies.networkFirst({
+//     cacheName: 'logic-cache'
+//   })
+// );
+
+let bgQueue = new workbox.backgroundSync.QueuePlugin({
+  callbacks: {
+    replayDidSucceed: async(hash, res) => {
+      self.registration.showNotification('Background sync demo', {
+        body: 'HEEYYYY'
+      });
+    },
+    replayDidFail: (hash) => {},
+    requestWillEnqueue: (reqData) => {},
+    requestWillDequeue: (reqData) => {}
+  }
+});
+
+workboxSW.router.registerRoute('/api/add',
+  workboxSW.strategies.networkOnly({plugins: [bgQueue]}),
+  'POST'
 );

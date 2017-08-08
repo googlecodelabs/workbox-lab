@@ -6,12 +6,18 @@
   "dependencies": {
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
-    "fs": "0.0.1-security"
+    "fs": "0.0.1-security",
+    "workbox-background-sync": "^1.2.0",
+    "workbox-routing": "^1.1.0",
+    "workbox-runtime-caching": "^1.2.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "workbox-build": "^1.2.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "gulp build-sw && node server.js"
   },
   "author": "",
   "license": "ISC"

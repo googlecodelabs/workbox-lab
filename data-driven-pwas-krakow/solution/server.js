@@ -15,7 +15,7 @@ app.get(['/', '/index.html'], (req, res) => {
 
 app.get('/api/getAll', (req, res) => {
   let options = {
-    root: __dirname + '/app/data/'
+    root: __dirname + '/app/server-data/'
   };
 
   const fileName = 'events.json';
@@ -28,8 +28,10 @@ app.get('/api/getAll', (req, res) => {
 });
 
 app.post('/api/add', (req, res) => {
-  let jsonFile = __dirname + '/app/data/events.json';
+  let jsonFile = __dirname + '/app/server-data/events.json';
   let newEvent = req.body;
+  req.body.id = Date.now();
+  console.log(newEvent);
   fs.readFile(jsonFile, (err, data) => {
     if (err) {
       res.sendStatus(500);
@@ -49,7 +51,7 @@ app.post('/api/add', (req, res) => {
 });
 
 app.post('/api/delete', (req, res) => {
-  let jsonFile = __dirname + '/app/data/events.json';
+  let jsonFile = __dirname + '/app/server-data/events.json';
   let id = req.body.id;
   fs.readFile(jsonFile, (err, data) => {
     if (err) {
