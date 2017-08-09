@@ -37,3 +37,9 @@ gulp.task('default', ['clean'], cb => {
     cb
   );
 });
+
+gulp.task('watch', function() {
+  gulp.watch('app/js/main.js', ['default']);
+  gulp.watch('app/src/sw.js', ['default']);
+  gulp.watch('app/index.html', ['default']);
+});
