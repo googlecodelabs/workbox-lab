@@ -4,22 +4,11 @@ importScripts('workbox-background-sync.prod.v1.2.0.js');
 const workboxSW = new WorkboxSW();
 workboxSW.precache([]);
 
-workboxSW.router.registerRoute('/api/getAll',
-  function() {
-    console.log('done');
-    return bgQueue.replayRequests().then(() => {
-      return fetch('/api/getAll');
-    }).catch((err) => {
-      console.log(err); // throw
-    });
-  }
-);
-
 let bgQueue = new workbox.backgroundSync.QueuePlugin({
   callbacks: {
     replayDidSucceed: async(hash, res) => {
       self.registration.showNotification('Background sync demo', {
-        body: 'HEEYYYY'
+        body: 'New event has been added!'
       });
     }
   }
@@ -30,7 +19,13 @@ workboxSW.router.registerRoute('/api/add',
   'POST'
 );
 
-self.addEventListener('message', event => {
-  console.log(event);
-  bgQueue.replayRequests();
-});
+workboxSW.router.registerRoute('/api/getAll',
+  function() {
+    console.log('done');
+    return bgQueue.replayRequests().then(() => {
+      return fetch('/api/getAll');
+    }).catch((err) => {
+      throw Error('replayRequests failed');
+    });
+  }
+);
