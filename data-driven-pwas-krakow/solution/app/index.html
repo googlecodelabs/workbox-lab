@@ -24,15 +24,17 @@ limitations under the License.
   <meta charset="utf-8">
 
   <!-- Set title -->
-  <title>Dashboardr</title>
+  <title>Travel Dashboard</title>
 
   <!-- Request fonts and styles -->
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="style/main.css" />
-  <link rel="stylesheet" href="http://weloveiconfonts.com/api/?family=zocial" />
+
+  <!-- Manifest -->
+  <link rel="manifest" href="manifest.json">
 
   <!-- Chrome for Android theme color -->
-  <meta name="theme-color" content="#2E3AA1">
+  <meta name="theme-color" content="#90a8b2">
 
   <!-- Add to homescreen for Chrome on Android -->
   <meta name="mobile-web-app-capable" content="yes">
@@ -46,7 +48,7 @@ limitations under the License.
   <link rel="apple-touch-icon" href="images/touch/icon-192x192.png">
 
   <!-- Tile for Win8 -->
-  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-TileColor" content="#90a8b2">
   <meta name="msapplication-TileImage" content="images/touch/icon-192x192.png">
 
 </head>
@@ -60,23 +62,15 @@ limitations under the License.
   </header>
 
   <main>
-    <h1>Dashboardr</h1>
+    <h1>Travel Dashboard</h1>
 
-    <!-- <picture id="banner">
-      <source media="(min-width: 750px)" srcset="images/still_life-1600_large_2x.jpg 2x, images/still_life-800_large_1x.jpg" />
-      <source media="(min-width: 500px)" srcset="images/still_life_medium.jpg" />
-      <img src="images/still_life_small.jpg" alt="Vase, fruit bowl and other objects on a cupboad">
-    </picture> -->
+    <picture id="banner">
+      <source media="(min-width: 750px)" srcset="images/sfo-1600_large_2x.jpg 2x, images/sfo-800_large_1x.jpg" />
+      <source media="(min-width: 500px)" srcset="images/sfo_medium.jpg" />
+      <img src="images/sfo_small.jpg" alt="View from aircraft window near San Francisco airport">
+    </picture>
 
     <section id="post">
-
-      <!-- <p class="lead">
-        I love cheese, especially manchego swiss. ☺ Fromage queso jarlsberg cheesy
-        feet emmental cottage cheese camembert de normandie bocconcini. Cottage cheese
-        everyone loves cauliflower cheese rubber cheese squirty cheese halloumi cow
-        fondue. Bocconcini cheese and biscuits everyone loves fondue red leicester
-        st. agur blue cheese rubber cheese ricotta. Cheesy grin mozzarella.
-      </p> -->
 
       <br>
 
@@ -84,12 +78,12 @@ limitations under the License.
 
       <br>
 
-      <p id="offline" style="display: none; background-color: red">You're offline and viewing stored data</p>
-      <p id="no-data" style="display: none; background-color: red">You're offline and local data is unavailable</p>
-      <p id="data-saved" style="display: none; background-color: green">This data was saved for offline mode!</p>
-      <p id="save-error" style="display: none; background-color: red">This data couldn't be saved offline :(</p>
+      <p id="offline" class="message warn">You're offline and viewing stored data</p>
+      <p id="no-data" class="message error">You're offline and local data is unavailable</p>
+      <p id="data-saved" class="message success">This data was saved for offline mode</p>
+      <p id="save-error" class="message error">This data couldn't be saved offline :(</p>
 
-      <ul id="container" style="background-color: #00bcd4"></ul>
+      <ul id="container" class="container"></ul>
 
       <br><br>
 
@@ -113,16 +107,6 @@ limitations under the License.
         <button id="add-event-button">Add event</button>
       </div>
 
-      <!-- <div class="links-lists">
-        <div class="list">
-          <p class="list-title">Company News Articles</p>
-          <a href="pages/article1.html" class="post-link">Article 1</a>
-          <a href="pages/article2.html" class="post-link">Article 2</a>
-          <a href="pages/article3.html" class="post-link">Article 3</a>
-          <a href="pages/article4.html" class="post-link">Non-existent article</a>
-        </div>
-      </div> -->
-
     </section>
 
   </main>
@@ -130,10 +114,10 @@ limitations under the License.
   <footer>
 
     <div id="social">
-      <a href="#" class="zocial-twitter">Twitter</a>
-      <a href="#" class="zocial-facebook">Facebook</a>
-      <a href="#" class="zocial-googleplus">Google+</a>
-      <a href="#" class="zocial-digg">Digg</a>
+      <a href="#">Twitter</a>
+      <a href="#">Facebook</a>
+      <a href="#">Google+</a>
+      <a href="#">Digg</a>
     </div>
 
   </footer>

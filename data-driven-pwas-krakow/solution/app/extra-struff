@@ -70,3 +70,11 @@ function saveChangeRequestLocally(changeRequest) {
     console.warn('Unable to save change offline!', err);
   });
 }
+
+// if (navigator.sync) {
+//   // cache first
+//   // add online listener -> cacheFirst
+// } else {
+//   loadContentNetworkFirst();
+//   // add online lister -> loadContentNetworkFirst
+// }

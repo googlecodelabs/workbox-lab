@@ -4,24 +4,25 @@ importScripts('workbox-background-sync.prod.v1.2.0.js');
 const workboxSW = new WorkboxSW();
 workboxSW.precache([]);
 
+workboxSW.precache([
+  'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700'
+]);
+
 let bgQueue = new workbox.backgroundSync.QueuePlugin({
   callbacks: {
     replayDidSucceed: async(hash, res) => {
       self.registration.showNotification('Background sync demo', {
-        body: 'New event has been added!'
+        body: 'Events have been updated!'
       });
     }
   }
 });
 
 workboxSW.router.registerRoute('/api/add',
-  workboxSW.strategies.networkOnly({plugins: [bgQueue]}),
-  'POST'
+  workboxSW.strategies.networkOnly({plugins: [bgQueue]}), 'POST'
 );
 
-workboxSW.router.registerRoute('/api/getAll',
-  function() {
-    console.log('done');
+workboxSW.router.registerRoute('/api/getAll', () => {
     return bgQueue.replayRequests().then(() => {
       return fetch('/api/getAll');
     }).catch((err) => {
