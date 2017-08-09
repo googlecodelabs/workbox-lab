@@ -4,7 +4,7 @@ const fs = require('fs');
 const app = express();
 
 // This serves static files from the specified directory
-app.use(express.static(__dirname + '/app'));
+app.use(express.static(__dirname + '/build'));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -15,7 +15,7 @@ app.get(['/', '/index.html'], (req, res) => {
 
 app.get('/api/getAll', (req, res) => {
   let options = {
-    root: __dirname + '/app/server-data/'
+    root: __dirname + '/server-data/'
   };
 
   const fileName = 'events.json';
@@ -28,10 +28,9 @@ app.get('/api/getAll', (req, res) => {
 });
 
 app.post('/api/add', (req, res) => {
-  let jsonFile = __dirname + '/app/server-data/events.json';
+  let jsonFile = __dirname + '/server-data/events.json';
   let newEvent = req.body;
-  req.body.id = Date.now();
-  console.log(newEvent);
+  console.log('Adding new event:', newEvent);
   fs.readFile(jsonFile, (err, data) => {
     if (err) {
       res.sendStatus(500);
@@ -51,7 +50,7 @@ app.post('/api/add', (req, res) => {
 });
 
 app.post('/api/delete', (req, res) => {
-  let jsonFile = __dirname + '/app/server-data/events.json';
+  let jsonFile = __dirname + '/server-data/events.json';
   let id = req.body.id;
   fs.readFile(jsonFile, (err, data) => {
     if (err) {

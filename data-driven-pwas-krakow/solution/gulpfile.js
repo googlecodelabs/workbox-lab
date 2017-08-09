@@ -1,5 +1,6 @@
 const gulp = require('gulp');
-// const browserSync = require('browser-sync');
+const del = require('del');
+const runSequence = require('run-sequence');
 const wbBuild = require('workbox-build');
 
 // gulp.task('default', ['serve']);
@@ -9,10 +10,18 @@ const wbBuild = require('workbox-build');
 //   gulp.watch('js/*.js', ['minify']);
 // });
 
+gulp.task('clean', () => del(['.tmp', 'build/*', '!build/.git'], {dot: true}));
+
+gulp.task('copy', () =>
+  gulp.src([
+    'app/**/*',
+  ]).pipe(gulp.dest('build'))
+);
+
 gulp.task('build-sw', () => {
   return wbBuild.injectManifest({
     swSrc: 'app/src/sw.js',
-    swDest: 'app/service-worker.js',
+    swDest: 'build/service-worker.js',
     globDirectory: 'app',
     staticFileGlobs: [
       'index.html',
@@ -25,13 +34,10 @@ gulp.task('build-sw', () => {
   });
 });
 
-// gulp.task('serve', ['build-sw'], function() {
-//   browserSync.init({
-//     server: './app/',
-//     port: 3000
-//   });
-//   // gulp.watch('styles/*.css', ['processCSS']).on('change', browserSync.reload);
-//   gulp.watch('**/style/*.css').on('change', browserSync.reload);
-//   gulp.watch('**/js/*.js').on('change', browserSync.reload);
-//   gulp.watch('**/*.html').on('change', browserSync.reload);
-// });
+gulp.task('default', ['clean'], cb => {
+  runSequence(
+    'copy',
+    'build-sw',
+    cb
+  );
+});

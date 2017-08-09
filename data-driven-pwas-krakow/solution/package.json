@@ -12,12 +12,14 @@
     "workbox-runtime-caching": "^1.2.0"
   },
   "devDependencies": {
+    "del": "^3.0.0",
     "gulp": "^3.9.1",
+    "run-sequence": "^2.1.0",
     "workbox-build": "^1.2.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "gulp build-sw && node server.js"
+    "start": "gulp && node server.js"
   },
   "author": "",
   "license": "ISC"
