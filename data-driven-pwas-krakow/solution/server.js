@@ -44,11 +44,13 @@ app.post('/api/add', (req, res) => {
         res.sendStatus(500);
         return;
       }
+      // You could also respond with the database json to save a round trip
       res.sendStatus(200);
     });
   });
 });
 
+//
 app.post('/api/delete', (req, res) => {
   let jsonFile = __dirname + '/server-data/events.json';
   let id = req.body.id;
@@ -58,8 +60,7 @@ app.post('/api/delete', (req, res) => {
       return;
     }
     let events = JSON.parse(data);
-    let eventToDelete = events.find((event) => event.id == id);
-    let index = events.indexOf(eventToDelete);
+    let index = events.findIndex(event => event.id == id);
     events.splice(index, 1);
 
     let eventsJson = JSON.stringify(events, null, 2);
