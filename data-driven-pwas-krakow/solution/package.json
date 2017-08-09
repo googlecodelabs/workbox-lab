@@ -8,8 +8,7 @@
     "express": "^4.15.3",
     "fs": "0.0.1-security",
     "workbox-background-sync": "^1.2.0",
-    "workbox-routing": "^1.1.0",
-    "workbox-runtime-caching": "^1.2.0"
+    "workbox-sw": "^1.1.0"
   },
   "devDependencies": {
     "del": "^3.0.0",

@@ -3,13 +3,6 @@ const del = require('del');
 const runSequence = require('run-sequence');
 const wbBuild = require('workbox-build');
 
-// gulp.task('default', ['serve']);
-
-// gulp.task('watch', function() {
-//   gulp.watch('styles/*.css', ['processCSS']);
-//   gulp.watch('js/*.js', ['minify']);
-// });
-
 gulp.task('clean', () => del(['.tmp', 'build/*', '!build/.git'], {dot: true}));
 
 gulp.task('copy', () =>
@@ -28,8 +21,7 @@ gulp.task('build-sw', () => {
       'style/*.css',
       'js/*.js',
     ]
-  })
-  .catch((err) => {
+  }).catch((err) => {
     console.log('[ERROR] This happened: ' + err);
   });
 });

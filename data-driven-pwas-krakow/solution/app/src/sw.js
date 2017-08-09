@@ -8,7 +8,7 @@ let bgQueue = new workbox.backgroundSync.QueuePlugin({
   callbacks: {
     replayDidSucceed: async(hash, res) => {
       self.registration.showNotification('Background sync demo', {
-        body: 'New event has been added!'
+        body: 'Events have been updated!'
       });
     }
   }
