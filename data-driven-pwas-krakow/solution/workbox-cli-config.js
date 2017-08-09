@@ -3,13 +3,11 @@ module.exports = {
   "globPatterns": [
     "style/main.css",
     "index.html",
-    "pages/offline.html",
-    "pages/404.html",
     "js/idb-promised.js",
-    "js/main.js"
-    // TODO whole app shell - fonts & image & icon
-    // TODO want a pattern in here though to demonstrate
-    // TODO index.html? staleWhileRevalidate? and/or cache timeout!
+    "js/main.js",
+    "images/*.jpg",
+    "images/**/*.svg",
+    "manifest.json"
   ],
   "swSrc": "app/src/sw.js",
   "swDest": "app/service-worker.js",

@@ -17,16 +17,17 @@ function loadContentNetworkFirst() {
     updateUI(dataFromNetwork); // display server data on page
     saveEventDataLocally(dataFromNetwork) // update local copy of data
     .then(() => {
-      messageDataSaved();
+      setLastUpdated(new Date()); // mark when the local data was last updated
+      messageDataSaved(); // alert user that data has been saved locally
     }).catch(err => {
-      messageSaveError();
+      messageSaveError(); // alert user that there was an error saving data
       console.warn(err);
     });
   }).catch(err => { // if we can't connect to the server...
     getLocalEventData() // attempt to get local data from IDB
     .then(offlineData => {
       if (!offlineData.length) { // alert user if there is no local data
-        messageNoData();
+        messageNoData(); // alert user that no local data is available
       } else {
         messageOffline(); // alert user that we are using local data (possibly outdated)
         updateUI(offlineData); // display local data on page
@@ -54,19 +55,19 @@ function updateUI(events) {
     let table = document.createElement('table');
     let tableContent = [
       '<tr>',
-        '<td>' + 'Title:' + '<td>',
+        '<td class="label">' + 'Title:' + '<td>',
         '<td>' + event.title + '<td>',
       '</tr>',
       '<tr>',
-        '<td>' + 'Date:' + '<td>',
+        '<td class="label">' + 'Date:' + '<td>',
         '<td>' + event.date + '<td>',
       '</tr>',
       '<tr>',
-        '<td>' + 'City:' + '<td>',
+        '<td class="label">' + 'City:' + '<td>',
         '<td>' + event.city + '<td>',
       '</tr>',
       '<tr>',
-        '<td>' + 'Note:' + '<td>',
+        '<td class="label">' + 'Note:' + '<td>',
         '<td>' + event.note + '<td>',
       '</tr>'
     ].join('\n');
@@ -78,6 +79,8 @@ function updateUI(events) {
 
 function messageOffline() {
   // alert user that data may not be current
+  let lastUpdated = getLastUpdated();
+  if (lastUpdated) {offlineMessage.textContent += ' from ' + lastUpdated;}
   offlineMessage.style.display = 'block';
 }
 
@@ -88,6 +91,8 @@ function messageNoData() {
 
 function messageDataSaved() {
   // alert user that data has been saved for offline
+  let lastUpdated = getLastUpdated();
+  if (lastUpdated) {dataSavedMessage.textContent += ' on ' + lastUpdated;}
   dataSavedMessage.style.display = 'block';
 }
 
@@ -96,7 +101,15 @@ function messageSaveError() {
   saveErrorMessage.style.display = 'block';
 }
 
-/* IndexedDB functions */
+/* Storage functions */
+
+function getLastUpdated() {
+  return localStorage.getItem('lastUpdated');
+}
+
+function setLastUpdated(date) {
+  localStorage.setItem('lastUpdated', date);
+}
 
 function createIndexedDB() {
   if (!('indexedDB' in window)) {return null;}
@@ -148,3 +161,55 @@ function addAndPostEvent() {
     body: body
   });
 }
+
+function pushQueue() {
+  navigator.serviceWorker.ready.then(reg => {
+    navigator.serviceWorker.controller.postMessage('Ciao!');
+  });
+  // return idb.open('bgQueueSyncDB').then(db => {
+  //   let tx = db.transaction('QueueStore', 'readwrite');
+  //   let store = tx.objectStore('QueueStore');
+  //   return store.openCursor();
+  // }).then(function pushAndDelete(cursor) {
+  //   if (!cursor) {return;}
+  //   let request = cursor.value.request;
+  //   if (request) {
+  //     fetch(request.url, {
+  //       method: request.method,
+  //       headers: new Headers({'Content-Type': 'application/json'}),
+  //       body: request.body
+  //     }).then(response => {
+  //       if (!response.ok) {
+  //         throw Error(response.statusText);
+  //       }
+  //       deleteFromQueue(cursor.key);
+  //     });
+  //   };
+  //   return cursor.continue().then(pushAndDelete);
+  // });
+}
+
+function deleteFromQueue(key) {
+  return idb.open('bgQueueSyncDB').then(db => {
+    let tx = db.transaction('QueueStore', 'readwrite');
+    let store = tx.objectStore('QueueStore');
+    return store.delete(key);
+  });
+}
+
+function test(data) {
+  return idb.open('bgQueueSyncDB').then(db => {
+    let tx = db.transaction('QueueStore', 'readwrite');
+    let store = tx.objectStore('QueueStore');
+    store.delete(data[0]);
+    store.delete(data[1]);
+    return store.delete(data[2]);
+    // return tx.complete; // TODO investigate
+  });
+}
+
+// navigator.serviceWorker.ready.then(reg => {
+//   navigator.serviceWorker.controller.onmessage = function() {
+//     console.log('it worked!');
+//   };
+// });

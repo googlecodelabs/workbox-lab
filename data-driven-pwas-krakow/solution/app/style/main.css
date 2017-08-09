@@ -14,39 +14,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-table {
-  margin: 10px;
-  background-color: yellow;
-}
-
-[class*="zocial-"]:before {
-  color: black;
-  display: inline-block;
-  font-family: 'zocial', sans-serif;
-  text-shadow: 3px 3px 3px #aaa;
-  width: 2em;
-}
-
-a:hover [class*="zocial-"]:before {
-  color: #3d85c6;
-}
-
 a {
   color: #4183C4;
   font-weight: 300;
   text-decoration: underline;
-}
-
-a:hover {
-  color: #3d85c6;
-  text-decoration: underline;
-}
-
-a#viewSource {
-  border-top: 1px solid #ddd;
-  display: block;
-  margin: 1.3em 0 0 0;
-  padding: 1em 0 0 0;
 }
 
 div#social a {
@@ -169,16 +140,6 @@ svg#logo {
   width: 6vw;
 }
 
-header:hover h1 {
-  color: #3d85c6;
-}
-
-header:hover svg#logo {
-  fill: #3d85c6;
-  -webkit-filter: drop-shadow(3px 3px 3px #ddd);
-  filter: drop-shadow(3px 3px 3px #ddd);
-}
-
 header {
   width: 100%;
   margin: 0 0 6vh 0;
@@ -211,13 +172,45 @@ ul.navbar > li > a {
   justify-content: center;
 }
 
-.list {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.message {
+  display: none;
+  padding: 5px;
+  border-radius: 10px;
+  border: 1px solid #9E9E9E;
 }
 
-.list-title {
-  text-align: center;
+.warn {
+  background: #ffe38e;
+}
+
+.error {
+  background: rgb(255, 178, 172);
+}
+
+.success {
+  background: #9cea9f;
+}
+
+.container {
+  padding: 5px 0 5px 0;
+  border-radius: 10px;
+}
+
+table {
+  margin: 10px 0 10px 0;
+  background-color: #f3f3f3;
+  border-radius: 10px;
+  padding: 5px;
+  width: 100%;
+  border: 1px solid #607D8B;
+}
+
+td {
+  text-align: left;
+  vertical-align: top;
+  padding: 5px;
+}
+
+.label {
   font-weight: bold;
 }
