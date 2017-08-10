@@ -122,15 +122,6 @@ function createIndexedDB() {
   });
 }
 
-function getLocalEventData() {
-  if (!('indexedDB' in window)) {return null;}
-  return dbPromise.then(db => {
-    let tx = db.transaction('events', 'readonly');
-    let store = tx.objectStore('events');
-    return store.getAll();
-  });
-}
-
 function saveEventDataLocally(events) {
   if (!('indexedDB' in window)) {return null;}
   return dbPromise.then(db => {
@@ -140,6 +131,15 @@ function saveEventDataLocally(events) {
       return store.put(event);
     }));
     // return tx.complete; // TODO investigate
+  });
+}
+
+function getLocalEventData() {
+  if (!('indexedDB' in window)) {return null;}
+  return dbPromise.then(db => {
+    let tx = db.transaction('events', 'readonly');
+    let store = tx.objectStore('events');
+    return store.getAll();
   });
 }
 
