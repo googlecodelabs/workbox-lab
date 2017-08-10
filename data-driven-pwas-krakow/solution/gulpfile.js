@@ -17,9 +17,13 @@ gulp.task('build-sw', () => {
     swDest: 'build/service-worker.js',
     globDirectory: 'app',
     staticFileGlobs: [
+      'style/main.css',
       'index.html',
-      'style/*.css',
-      'js/*.js',
+      'js/idb-promised.js',
+      'js/main.js',
+      'images/*.jpg',
+      'images/**/*.svg',
+      'manifest.json'
     ]
   }).catch((err) => {
     console.log('[ERROR] This happened: ' + err);
@@ -32,4 +36,10 @@ gulp.task('default', ['clean'], cb => {
     'build-sw',
     cb
   );
+});
+
+gulp.task('watch', function() {
+  gulp.watch('app/js/main.js', ['default']);
+  gulp.watch('app/src/sw.js', ['default']);
+  gulp.watch('app/index.html', ['default']);
 });

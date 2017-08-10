@@ -12,10 +12,10 @@ const dbPromise = createIndexedDB();
 loadContentNetworkFirst();
 
 function loadContentNetworkFirst() {
-  getServerData() // then get updated server data
+  getServerData() // get server data
   .then(dataFromNetwork => {
     updateUI(dataFromNetwork); // display server data on page
-    saveEventDataLocally(dataFromNetwork) // update local copy of data
+    saveEventDataLocally(dataFromNetwork) // update local copy of data in IDB
     .then(() => {
       setLastUpdated(new Date()); // mark when the local data was last updated
       messageDataSaved(); // alert user that data has been saved locally
@@ -24,6 +24,7 @@ function loadContentNetworkFirst() {
       console.warn(err);
     });
   }).catch(err => { // if we can't connect to the server...
+    console.log('Network requests have failed, this is expected if offline');
     getLocalEventData() // attempt to get local data from IDB
     .then(offlineData => {
       if (!offlineData.length) { // alert user if there is no local data
@@ -80,7 +81,9 @@ function updateUI(events) {
 function messageOffline() {
   // alert user that data may not be current
   let lastUpdated = getLastUpdated();
-  if (lastUpdated) {offlineMessage.textContent += ' from ' + lastUpdated;}
+  if (lastUpdated) {
+    offlineMessage.textContent += ' Last fetched server data: ' + lastUpdated;
+  }
   offlineMessage.style.display = 'block';
 }
 
