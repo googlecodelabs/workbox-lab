@@ -23,10 +23,9 @@ workboxSW.router.registerRoute('/api/add',
 );
 
 workboxSW.router.registerRoute('/api/getAll', () => {
-    return bgQueue.replayRequests().then(() => {
-      return fetch('/api/getAll');
-    }).catch(err => {
-      return err; // we will handle this error in main.js
-    });
-  }
-);
+  return bgQueue.replayRequests().then(() => {
+    return fetch('/api/getAll');
+  }).catch(err => {
+    return err; // we will handle this error in main.js
+  });
+});

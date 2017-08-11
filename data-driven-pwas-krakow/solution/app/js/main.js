@@ -7,6 +7,8 @@ let addEventButton = document.getElementById('add-event-button');
 
 addEventButton.addEventListener('click', addAndPostEvent);
 
+Notification.requestPermission()
+
 const dbPromise = createIndexedDB();
 
 loadContentNetworkFirst();
