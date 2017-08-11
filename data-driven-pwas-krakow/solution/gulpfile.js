@@ -11,6 +11,18 @@ gulp.task('copy', () =>
   ]).pipe(gulp.dest('build'))
 );
 
+gulp.task('default', ['clean'], cb => {
+  runSequence(
+    'copy',
+    'build-sw',
+    cb
+  );
+});
+
+gulp.task('watch', function() {
+  gulp.watch('app/**/*', ['default']);
+});
+
 gulp.task('build-sw', () => {
   return wbBuild.injectManifest({
     swSrc: 'app/src/sw.js',
@@ -28,18 +40,4 @@ gulp.task('build-sw', () => {
   }).catch((err) => {
     console.log('[ERROR] This happened: ' + err);
   });
-});
-
-gulp.task('default', ['clean'], cb => {
-  runSequence(
-    'copy',
-    'build-sw',
-    cb
-  );
-});
-
-gulp.task('watch', function() {
-  gulp.watch('app/js/main.js', ['default']);
-  gulp.watch('app/src/sw.js', ['default']);
-  gulp.watch('app/index.html', ['default']);
 });
