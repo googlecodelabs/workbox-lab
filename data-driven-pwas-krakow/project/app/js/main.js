@@ -1,9 +1,9 @@
-let container = document.getElementById('container');
-let offlineMessage = document.getElementById('offline');
-let noDataMessage = document.getElementById('no-data');
-let dataSavedMessage = document.getElementById('data-saved');
-let saveErrorMessage = document.getElementById('save-error');
-let addEventButton = document.getElementById('add-event-button');
+const container = document.getElementById('container');
+const offlineMessage = document.getElementById('offline');
+const noDataMessage = document.getElementById('no-data');
+const dataSavedMessage = document.getElementById('data-saved');
+const saveErrorMessage = document.getElementById('save-error');
+const addEventButton = document.getElementById('add-event-button');
 
 addEventButton.addEventListener('click', addAndPostEvent);
 
@@ -34,7 +34,7 @@ function getServerData() {
 }
 
 function addAndPostEvent() {
-  let data = {
+  const data = {
     id: Date.now(),
     title: document.getElementById('title').value,
     date: document.getElementById('date').value,
@@ -43,8 +43,8 @@ function addAndPostEvent() {
   };
   updateUI([data]);
   // saveEventDataLocally([data]);
-  let headers = new Headers({'Content-Type': 'application/json'});
-  let body = JSON.stringify(data);
+  const headers = new Headers({'Content-Type': 'application/json'});
+  const body = JSON.stringify(data);
   return fetch('api/add', {
     method: 'POST',
     headers: headers,
@@ -56,9 +56,9 @@ function addAndPostEvent() {
 
 function updateUI(events) {
   events.forEach(event => {
-    let eventItem = document.createElement('li');
-    let table = document.createElement('table');
-    let tableContent = [
+    const eventItem = document.createElement('li');
+    const table = document.createElement('table');
+    const tableContent = [
       '<tr>',
         '<td class="label">' + 'Title:' + '</td>',
         '<td>' + event.title + '</td>',
@@ -84,7 +84,7 @@ function updateUI(events) {
 
 function messageOffline() {
   // alert user that data may not be current
-  let lastUpdated = getLastUpdated();
+  const lastUpdated = getLastUpdated();
   if (lastUpdated) {
     offlineMessage.textContent += ' Last fetched server data: ' + lastUpdated;
   }
@@ -98,7 +98,7 @@ function messageNoData() {
 
 function messageDataSaved() {
   // alert user that data has been saved for offline
-  let lastUpdated = getLastUpdated();
+  const lastUpdated = getLastUpdated();
   if (lastUpdated) {dataSavedMessage.textContent += ' on ' + lastUpdated;}
   dataSavedMessage.style.display = 'block';
 }
