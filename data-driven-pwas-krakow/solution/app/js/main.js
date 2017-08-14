@@ -141,8 +141,6 @@ function createIndexedDB() {
   return idb.open('dashboardr', 1, function(upgradeDb) {
     if (!upgradeDb.objectStoreNames.contains('events')) {
       const eventsOS = upgradeDb.createObjectStore('events', {keyPath: 'id'});
-      eventsOS.createIndex('date', 'date');
-      eventsOS.createIndex('city', 'city');
     }
   });
 }
