@@ -9,6 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "workbox-sw": "^1.1.0"
+    "workbox-sw": "^1.3.0"
   }
 }

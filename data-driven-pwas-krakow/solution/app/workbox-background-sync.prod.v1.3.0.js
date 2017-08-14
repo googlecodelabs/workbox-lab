@@ -67,4 +67,4 @@ exports.Queue = Queue;
 exports.QueuePlugin = QueuePlugin;
 
 }((this.workbox.backgroundSync = this.workbox.backgroundSync || {})));
-//# sourceMappingURL=workbox-background-sync.prod.v1.2.0.js.map
+//# sourceMappingURL=workbox-background-sync.prod.v1.3.0.js.map
