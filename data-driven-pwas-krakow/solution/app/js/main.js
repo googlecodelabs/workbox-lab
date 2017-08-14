@@ -150,9 +150,10 @@ function saveEventDataLocally(events) {
   return dbPromise.then(db => {
     const tx = db.transaction('events', 'readwrite');
     const store = tx.objectStore('events');
-    return Promise.all(events.map(event => {
-      return store.put(event);
-    }));
+    for (var i = 0; i < events.length; i++) {
+      store.put(event[i]);
+    }
+    return tx.complete;
   });
 }
 
