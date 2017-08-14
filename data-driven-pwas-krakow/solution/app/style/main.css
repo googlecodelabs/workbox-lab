@@ -215,3 +215,15 @@ td {
 .label {
   font-weight: bold;
 }
+
+input,
+textarea {
+  width: 200px;
+}
+
+#add-event-button {
+  border-radius: 5px;
+  background-color: #f3f3f3;
+  padding: 10px;
+  font-size: 1em;
+}

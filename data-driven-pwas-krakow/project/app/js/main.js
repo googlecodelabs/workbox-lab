@@ -33,7 +33,8 @@ function getServerData() {
   });
 }
 
-function addAndPostEvent() {
+function addAndPostEvent(e) {
+  e.preventDefault();
   const data = {
     id: Date.now(),
     title: document.getElementById('title').value,

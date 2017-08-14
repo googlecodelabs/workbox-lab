@@ -87,25 +87,29 @@ limitations under the License.
 
       <br><br>
 
-      <div>
-        <label for="title">Title:</label>
-        <input type="text" id="title" name="title">
-      </div>
-      <div>
-        <label for="date">Date:</label>
-        <input type="date" id="date" name="date">
-      </div>
-      <div>
-        <label for="city">City:</label>
-        <input type="text" id="city" name="city">
-      </div>
-      <div>
-        <label for="note">Note:</label>
-        <textarea id="note" name="note"></textarea>
-      </div>
-      <div class="button">
-        <button id="add-event-button">Add event</button>
-      </div>
+      <form class="form" action="#" method="post">
+        <table class="add-form">
+          <tr>
+            <td><label class="label" for="title">Title:</label></td>
+            <td><input type="text" id="title" name="title"></td>
+          </tr>
+          <tr>
+            <td><label class="label" for="date">Date:</label></td>
+            <td><input type="date" id="date" name="date"></td>
+          </tr>
+          <tr>
+            <td><label class="label" for="city">City:</label></td>
+            <td><input type="text" id="city" name="city"></td>
+          </tr>
+          <tr>
+            <td><label class="label" for="note">Note:</label></td>
+            <td><textarea id="note" name="note"></textarea></td>
+          </tr>
+        </table>
+        <div class="button">
+          <button id="add-event-button">Add event</button>
+        </div>
+      </form>
 
     </section>
 
