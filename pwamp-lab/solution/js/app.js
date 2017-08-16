@@ -25,7 +25,7 @@ class Router {
       const anchor = elements[i];
       const href = anchor.href;
       anchor.href = '/shell.html#href=' + encodeURIComponent(href);
-    } 
+    }
   }
 }
 
@@ -68,30 +68,30 @@ class AmpPage {
       this.xhr_.send();
     });
   };
-       
+
   loadDocument(url) {
     return this._fetchDocument(url)
       .then(document => {
         router.replaceLinks(document);
         const header = document.querySelector('.header');
-        header.remove();        
-        window.AMP.attachShadowDoc(this.rootElement, document, url);            
-      });       
-  }    
+        header.remove();
+        window.AMP.attachShadowDoc(this.rootElement, document, url);
+      });
+  }
 }
 
 const ampReadyPromise = new Promise(resolve => {
   (window.AMP = window.AMP || []).push(resolve);
-});        
+});
 const router = new Router();
 router.replaceLinks(document);
 
 function getContentUri() {
   const hash = window.location.hash;
-  if (hash && hash.indexOf('href=') > -1) {          
+  if (hash && hash.indexOf('href=') > -1) {
     return decodeURIComponent(hash.substr(6));
   }
-  return window.location;  
+  return window.location;
 }
 
 const ampRoot = document.querySelector('#amproot');
@@ -106,5 +106,3 @@ ampReadyPromise
       window.history.replaceState({}, '', url);
     }
   });
-
-
