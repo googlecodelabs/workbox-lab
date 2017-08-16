@@ -49,8 +49,8 @@ var articleHandler = workboxSW.strategies.networkFirst({
   }
 });
 
-workboxSW.router.registerRoute('/**/pages/article*.html', function(event) {
-  return articleHandler.handle(event).then(function(response) {
+workboxSW.router.registerRoute('/**/pages/article*.html', (obj) => {
+  return articleHandler.handle(obj).then((response) => {
     if (!response) {
       return caches.match('pages/offline.html');
     } else if (response.status === 404) {
@@ -67,8 +67,8 @@ var postHandler = workboxSW.strategies.cacheFirst({
   }
 });
 
-workboxSW.router.registerRoute('/**/pages/post*.html', function(event) {
-  return postHandler.handle(event).then(function(response) {
+workboxSW.router.registerRoute('/**/pages/post*.html', (obj) => {
+  return postHandler.handle(obj).then((response) => {
     if (response.status === 404) {
       return caches.match('pages/404.html');
     }
