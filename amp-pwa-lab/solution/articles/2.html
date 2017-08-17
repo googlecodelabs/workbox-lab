@@ -31,8 +31,8 @@ limitations under the License.
       background: #F5F5F5;
       font-size: 12px;
       font-weight: 300;
-      font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;    
-    }    
+      font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+    }
 
     a {
       text-decoration: none;
@@ -46,8 +46,8 @@ limitations under the License.
       box-shadow: 0px 2px 5px #999999;
       height: 40px;
       display: flex;
-      align-items: center;    
-    }      
+      align-items: center;
+    }
 
     .header h1 {
       margin: 0 8px 0 0;
@@ -57,13 +57,13 @@ limitations under the License.
       margin-right: 8px;
     }
 
-    .header a { 
+    .header a {
       color: white;
     }
 
     .header a:visited {
       color: white;
-    }    
+    }
 
     .article-list {
       display: block;
@@ -81,61 +81,61 @@ limitations under the License.
 
     .article-list__item a{
       width: 100%;
-      display: flex;      
+      display: flex;
       box-shadow: 0px 2px 5px #999999;
-      height: 100px;      
+      height: 100px;
     }
 
     .article-list__item h2 {
       margin: 0;
-      line-height: 92px;      
+      line-height: 92px;
     }
     .article-list__item__img {
       width: 25%;
       display: inline;
       margin: 8px;
-    }   
+    }
 
     .article  {
-      margin: 8px 16px;          
-    } 
+      margin: 8px 16px;
+    }
 
     .related h2 {
-      margin: 8px 16px;                
+      margin: 8px 16px;
     }
   </style>
-  <script async custom-element="amp-install-serviceworker" 
+  <script async custom-element="amp-install-serviceworker"
     src="https://cdn.ampproject.org/v0/amp-install-serviceworker-0.1.js">
-  </script>  
+  </script>
   <script async="" src="https://cdn.ampproject.org/v0.js"></script>
 </head>
 <body>
   <header class="header">
-    <amp-img src="/img/amp_logo_white.svg" width="36" height="36"></amp-img>    
+    <amp-img src="/img/amp_logo_white.svg" width="36" height="36"></amp-img>
     <h1><a href="/">AMP PWA Codelab - AMP</a></h1>
   </header>
   <div class="content">
     <section class="article">
-      <h2>Article 2</h2>    
-      <amp-img 
-          src="img/elephant_wide.jpg" 
-          width="1280" 
-          height="555" 
+      <h2>Article 2</h2>
+      <amp-img
+          src="img/elephant_wide.jpg"
+          width="1280"
+          height="555"
           layout="responsive">
       </amp-img>
       <p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.        
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       </p>
     </section>
 
     <section class="related">
-      <h2>Related Articles<h2>    
-      <ul class="article-list">    
+      <h2>Related Articles</h2>    
+      <ul class="article-list">
         <li class="article-list__item">
           <a href="/articles/1.html">
-            <amp-img class="article-list__item__img" 
-                src="img/bird_cropped.png" 
-                width="93" 
+            <amp-img class="article-list__item__img"
+                src="img/bird_cropped.png"
+                width="93"
                 height="80">
             </amp-img>
             <h3>Article 1</h3>
@@ -143,23 +143,23 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
         </li>
         <li class="article-list__item">
           <a href="/articles/3.html">
-            <amp-img class="article-list__item__img" 
-                src="img/sloth_cropped.png" 
-                width="93" 
+            <amp-img class="article-list__item__img"
+                src="img/sloth_cropped.png"
+                width="93"
                 height="80">
             </amp-img>
             <h3>Article 3</h3>
-          </a> 
-        </li>        
+          </a>
+        </li>
       </ul>
     </section>
   </div>
-  <amp-install-serviceworker 
-    src="/service-worker.js" 
+  <amp-install-serviceworker
+    src="/service-worker.js"
     layout="nodisplay"
     data-iframe-src="/install-service-worker.html"
     data-no-service-worker-fallback-url-match=".*"
     data-no-service-worker-fallback-shell-url="/shell.html">
-  </amp-install-serviceworker>       
+  </amp-install-serviceworker>
 </body>
 </html>
