@@ -7,12 +7,7 @@ workboxSW.router.registerRoute('/*', args => {
   if (args.event.request.mode !== 'navigate') {
     return workboxSW.strategies.cacheFirst().handle(args);
   }
-  return workboxSW.strategies.networkFirst().handle(args).then(response => {
-    if (!response) {
-      return caches.match('offline.html');
-    }
-    return response;
-  });
+  return caches.match('/shell.html', {ignoreSearch: true});
 });
 
 workboxSW.router.registerRoute(/(.*)cdn\.ampproject\.org(.*)/,

@@ -17,7 +17,7 @@ limitations under the License.
 'use strict';
 class Router {
   replaceLinks(document) {
-    if("serviceWorker" in navigator) {
+    if ('serviceWorker' in navigator) {
       return;
     }
     const elements = document.getElementsByTagName('a');
@@ -70,13 +70,12 @@ class AmpPage {
   };
 
   loadDocument(url) {
-    return this._fetchDocument(url)
-      .then(document => {
-        router.replaceLinks(document);
-        const header = document.querySelector('.header');
-        header.remove();
-        window.AMP.attachShadowDoc(this.rootElement, document, url);
-      });
+    return this._fetchDocument(url).then(document => {
+      router.replaceLinks(document);
+      const header = document.querySelector('.header');
+      header.remove();
+      window.AMP.attachShadowDoc(this.rootElement, document, url);
+    });
   }
 }
 
@@ -97,12 +96,10 @@ function getContentUri() {
 const ampRoot = document.querySelector('#amproot');
 const url = getContentUri();
 const amppage = new AmpPage(ampRoot, router);
-ampReadyPromise
-  .then(() => {
-    amppage.loadDocument(url);
-  })
-  .then(() => {
-    if (window.history) {
-      window.history.replaceState({}, '', url);
-    }
-  });
+ampReadyPromise.then(() => {
+  amppage.loadDocument(url);
+}).then(() => {
+  if (window.history) {
+    window.history.replaceState({}, '', url);
+  }
+});

@@ -1,12 +1,12 @@
 /*
  * Copyright 2017 Google Inc.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,15 +17,7 @@
 'use strict';
 class Router {
   replaceLinks(document) {
-    if("serviceWorker" in navigator) {
-      return;
-    }
-    const elements = document.getElementsByTagName('a');
-    for (let i = 0; i < elements.length; i++) {
-      const anchor = elements[i];
-      const href = anchor.href;
-      anchor.href = '/shell.html#href=' + encodeURIComponent(href);
-    } 
+    // TODO replace links
   }
 }
 
@@ -68,19 +60,16 @@ class AmpPage {
       this.xhr_.send();
     });
   };
-       
+
   loadDocument(url) {
     // TODO: Add code to load a document and attach to Shadow Root
-  }    
+  }
 }
 
 const ampReadyPromise = new Promise(resolve => {
   (window.AMP = window.AMP || []).push(resolve);
-});        
+});
 const router = new Router();
-router.replaceLinks(document);
 
-// TODO: get a reference to the container and URL, and load the AMP page 
+// TODO: get a reference to the container and URL, and load the AMP page
 // when ampReadyPromise resolves.
-
-

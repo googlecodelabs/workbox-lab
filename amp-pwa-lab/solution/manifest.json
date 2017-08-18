@@ -3,8 +3,7 @@
   "short_name": "AMP PWA Codelab",
   "theme_color": "#00796b",
   "background_color": "#00796b",
-  "display": "fullscreen",
-  "scope": "/",
+  "display": "standalone",
   "start_url": "/index.html",
   "icons": [
     {
@@ -47,6 +46,5 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ],
-  "splash_pages": null
+  ]
 }
