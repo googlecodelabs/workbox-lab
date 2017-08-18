@@ -50,7 +50,7 @@ var articleHandler = workboxSW.strategies.networkFirst({
 });
 
 workboxSW.router.registerRoute('/**/pages/article*.html', args => {
-  return articleHandler.handle(args).then((response) => {
+  return articleHandler.handle(args).then(response => {
     if (!response) {
       return caches.match('pages/offline.html');
     } else if (response.status === 404) {
@@ -68,7 +68,7 @@ var postHandler = workboxSW.strategies.cacheFirst({
 });
 
 workboxSW.router.registerRoute('/**/pages/post*.html', args => {
-  return postHandler.handle(args).then((response) => {
+  return postHandler.handle(args).then(response => {
     if (response.status === 404) {
       return caches.match('pages/404.html');
     }
