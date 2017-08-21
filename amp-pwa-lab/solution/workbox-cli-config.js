@@ -4,6 +4,7 @@ module.exports = {
     "img/**.*",
     "offline.html",
     "index.html",
+    "icons/**.*",
     "shell.html",
     "js/**.js"
   ],
