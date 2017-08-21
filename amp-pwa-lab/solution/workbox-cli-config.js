@@ -6,7 +6,7 @@ module.exports = {
     "index.html",
     "icons/**.*",
     "shell.html",
-    "js/**.js"
+    "js/app.js"
   ],
   "swSrc": "src/sw.js",
   "swDest": "service-worker.js",
