@@ -33,8 +33,7 @@ gulp.task('build-sw', () => {
       'index.html',
       'js/idb-promised.js',
       'js/main.js',
-      'images/*.jpg',
-      'images/**/*.svg',
+      'images/**/*.*',
       'manifest.json'
     ]
   }).catch((err) => {
