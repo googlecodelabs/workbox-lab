@@ -150,10 +150,11 @@ function saveEventDataLocally(events) {
   return dbPromise.then(db => {
     const tx = db.transaction('events', 'readwrite');
     const store = tx.objectStore('events');
-    for (var i = 0; i < events.length; i++) {
-      store.put(events[i]);
-    }
-    return tx.complete;
+    return Promise.all(events.map(event => store.put(event)))
+    .catch(() => {
+      tx.abort();
+      throw Error('Events were not added to the store');
+    });
   });
 }
 
