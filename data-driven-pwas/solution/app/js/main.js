@@ -151,7 +151,7 @@ function saveEventDataLocally(events) {
     const tx = db.transaction('events', 'readwrite');
     const store = tx.objectStore('events');
     for (var i = 0; i < events.length; i++) {
-      store.put(event[i]);
+      store.put(events[i]);
     }
     return tx.complete;
   });
