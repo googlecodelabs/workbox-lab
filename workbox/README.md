@@ -4,9 +4,13 @@ In this lab you learn how to use the Workbox suite.
 
 ## Getting started
 
-Clone the repository and navigate to **data-driven-pwas/project**.
+Clone the repository and navigate to **workbox/project**.
 
 [Download and install Node.js](https://nodejs.org/en/download/).
+
+## Note
+
+Some contents from Responsive Blog Sample - Copyright Sam Dutton 2016
 
 ## License
 
