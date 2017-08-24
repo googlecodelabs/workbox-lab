@@ -1,6 +1,6 @@
 # Workbox
 
-In this lab you learn how to use the Workbox suite.
+In this lab you learn how to use IndexedDB and the Workbox suite.
 
 ## Getting started
 
