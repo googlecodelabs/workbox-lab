@@ -27,5 +27,8 @@ module.exports = {
   "swDest": "service-worker.js",
   "globIgnores": [
     "./workbox-cli-config.js"
-  ]
+  ],
+  "templatedUrls": {
+    "/": ["index.html"]
+  }
 };

@@ -42,7 +42,7 @@ gulp.task('build-sw', () => {
   return wbBuild.injectManifest({
     swSrc: 'app/src/sw.js',
     swDest: 'build/service-worker.js',
-    globDirectory: 'app',
+    globDirectory: 'build',
     staticFileGlobs: [
       'style/main.css',
       'index.html',
@@ -50,7 +50,10 @@ gulp.task('build-sw', () => {
       'js/main.js',
       'images/**/*.*',
       'manifest.json'
-    ]
+    ],
+    templatedUrls: {
+      '/': ['index.html']
+    }
   }).catch((err) => {
     console.log('[ERROR] This happened: ' + err);
   });
