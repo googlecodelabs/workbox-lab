@@ -18,12 +18,17 @@ importScripts('workbox-sw.dev.v2.0.0.js');
 const workboxSW = new self.WorkboxSW();
 workboxSW.precache([]);
 
-workboxSW.router.registerRoute('/*', args => {
-  if (args.event.request.mode !== 'navigate') {
-    return workboxSW.strategies.cacheFirst().handle(args);
-  }
+workboxSW.router.registerRoute(/\/(.*)\.(?:js|css|png|gif|jpg|svg)$/,
+  workboxSW.strategies.cacheFirst()
+);
+
+workboxSW.router.registerRoute(/\/$|\.html$/, args => {
   return caches.match('/shell.html', {ignoreSearch: true});
 });
+
+workboxSW.router.registerRoute(/\/(.*)?shell=false$/,
+  workboxSW.strategies.cacheFirst()
+);
 
 workboxSW.router.registerRoute(/(.*)cdn\.ampproject\.org(.*)/,
   workboxSW.strategies.staleWhileRevalidate()
