@@ -54,6 +54,11 @@ function loadContentNetworkFirst() {
   });
 }
 
+window.addEventListener('online', () => {
+  container.innerHTML = '';
+  loadContentNetworkFirst();
+});
+
 /* Network functions */
 
 function getServerData() {
