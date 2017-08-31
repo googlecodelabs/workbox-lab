@@ -12,6 +12,10 @@ Clone the repository and navigate to **workbox-lab/project**.
 
 Some contents from Responsive Blog Sample - Copyright Sam Dutton 2016
 
+## More resources
+
+* [PWA training materials](https://developers.google.com/web/ilt/pwa/)
+
 ## License
 
 Copyright 2016 Google Inc.
