@@ -48,7 +48,7 @@ workboxSW.router.registerRoute('http://weloveiconfonts.com/(.*)',
   })
 );
 
-workboxSW.router.registerRoute('/**/images/icon/*',
+workboxSW.router.registerRoute('/images/icon/*',
   workboxSW.strategies.staleWhileRevalidate({
     cacheName: 'icon-cache',
     cacheExpiration: {
@@ -64,7 +64,7 @@ var articleHandler = workboxSW.strategies.networkFirst({
   }
 });
 
-workboxSW.router.registerRoute('/**/pages/article*.html', args => {
+workboxSW.router.registerRoute('/pages/article*.html', args => {
   return articleHandler.handle(args).then(response => {
     if (!response) {
       return caches.match('pages/offline.html');
@@ -82,7 +82,7 @@ var postHandler = workboxSW.strategies.cacheFirst({
   }
 });
 
-workboxSW.router.registerRoute('/**/pages/post*.html', args => {
+workboxSW.router.registerRoute('/pages/post*.html', args => {
   return postHandler.handle(args).then(response => {
     if (response.status === 404) {
       return caches.match('pages/404.html');
