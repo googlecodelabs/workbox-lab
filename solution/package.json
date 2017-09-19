@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "copyfiles -u 1 app/**/* app/* build && node server.js"
+    "start": "copyfiles -u 1 app/**/**/* app/**/* app/* build && node server.js"
   },
   "author": "",
   "license": "ISC",
