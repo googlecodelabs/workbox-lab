@@ -5,15 +5,17 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "copyfiles -u 1 src/**/**/* src/**/* src/* build && node server.js"
+    "start": "copyfiles -u 1 src/**/**/* src/**/* src/* build && node server.js",
+    "build": "workbox inject:manifest"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.15.4",
-    "workbox-sw": "^2.0.0"
+    "express": "4.15.4",
+    "workbox-sw": "2.0.0"
   },
   "devDependencies": {
-    "copyfiles": "^1.2.0"
+    "copyfiles": "1.2.0",
+    "workbox-cli": "2.1.1"
   }
 }
