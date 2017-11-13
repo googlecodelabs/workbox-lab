@@ -24,40 +24,46 @@ limitations under the License.
   <meta charset="utf-8">
 
   <!-- Set title -->
-  <title>My responsive blog: picture story</title>
+  <title>Article1</title>
 
-  <!-- Request fonts and styles -->
-  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" href="../style/main.css" />
+  <!-- Request styles -->
+  <link rel="stylesheet" href="/style/main.css" />
 
 </head>
 
 <body>
 
-  <article>
+  <header>
+    <ul class="navbar">
+      <li><a href="/index.html">Home</a></li>
+      <li class="profile-icon"><img src="/images/icon/icon.svg" alt="profile icon" /></li>
+    </ul>
+  </header>
 
-    <section id="post">
+  <article id="post" class="standalone">
 
-      <picture>
-        <source media="(min-width: 750px)" srcset="../images/postcard-1600_large_2x.jpg 2x, ../images/postcard-800_large_1x.jpg" />
-        <source media="(min-width: 500px)" srcset="../images/postcard_medium.jpg" />
-        <img src="../images/postcard_small.jpg" alt="French postcard from 25 November 1914">
-      </picture>
+    <section>
 
-      <p>
-        Pecorino pepper jack cheesy feet. Smelly cheese cauliflower cheese fromage
-        halloumi cream cheese who moved my cheese fromage fondue. Feta danish fontina
-        cheesy grin mozzarella fromage cheesy grin airedale paneer. Cheddar halloumi
-        cheese and biscuits jarlsberg cheese and biscuits cheese and biscuits squirty
-        cheese.
-      </p></br></br>
+      <div class="img-container left column">
+        <img src="/images/articles/buildings.jpg" alt="Looking up at skyscrapers">
+      </div>
 
-      <a href="../index.html" class="post-link">My site</a>
+      <div class="right column">
+        <h2 class="headline">Article 1</h2>
+        <p class="content">
+          I love cheese, especially manchego swiss. ☺ Fromage queso jarlsberg cheesy
+          feet emmental cottage cheese camembert de normandie bocconcini. Cottage cheese
+          everyone loves cauliflower cheese rubber cheese squirty cheese halloumi cow
+          fondue. Bocconcini cheese and biscuits everyone loves fondue red leicester
+          st. agur blue cheese rubber cheese ricotta. Cheesy grin mozzarella.
+        </p>
+      </div>
 
     </section>
+
   </article>
 
-  <script src="../js/animation.js"></script>
+  <script src="/js/animation.js"></script>
 
 </body>
 </html>
