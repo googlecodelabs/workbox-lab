@@ -10,7 +10,7 @@ Clone the repository and navigate to **workbox-lab/project**.
 
 ## Note
 
-Some contents from Responsive Blog Sample - Copyright Sam Dutton 2016
+All images are CCO
 
 ## More resources
 
