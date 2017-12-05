@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "copyfiles -u 1 src/**/*.{jpg,svg,js,html,css} src/*.{js,html} build && node server.js",
+    "start": "copyfiles -e '**/sw.js' -u 1 src/**/*.{jpg,svg,js,html,css} src/*.{js,html} build && node server.js",
     "build": "workbox inject:manifest"
   },
   "author": "",
