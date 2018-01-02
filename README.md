@@ -4,9 +4,7 @@ In this codelab, you’ll use [Workbox](https://workboxjs.org/) to convert a web
 
 ## Getting started
 
-Clone the repository and navigate to **workbox-lab/project**.
-
-[Download and install Node.js](https://nodejs.org/en/download/).
+Follow the [Google Codelabs instructions](https://codelabs.developers.google.com/codelabs/workbox-lab/index.html?index=..%2F..%2Findex#0).
 
 ## Note
 
