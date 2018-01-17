@@ -134,10 +134,6 @@ li {
   width: 100%;
 }
 
-.standalone {
-  margin-top: 10vh;
-}
-
 .img-container {
   padding-top: 10px;
 }
@@ -163,8 +159,12 @@ li {
     padding-left: 10px;
   }
 
-  .standalone {
-    margin-top: 25vh;
-  }
+}
 
+.padded {
+  padding: 0 10%;
+}
+
+.back-link {
+  padding-bottom: 10%;
 }
