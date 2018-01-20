@@ -12,9 +12,6 @@ module.exports = {
   "swSrc": "src/sw.js",
   "swDest": "build/sw.js",
   "globIgnores": [
-    "../workbox-cli-config.js"
-  ],
-  "templatedUrls": {
-    "/": ["index.html"]
-  }
+    "../workbox-config.js"
+  ]
 };
