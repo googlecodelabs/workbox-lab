@@ -1,5 +1,5 @@
 /*
-Copyright 2016 Google Inc.
+Copyright 2018 Google Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -13,30 +13,47 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-importScripts('workbox-sw.dev.v2.0.0.js');
 
-const workboxSW = new WorkboxSW();
-workboxSW.precache([]);
+// TODO - update once out of alpha
+importScripts('https://storage.googleapis.com/workbox-cdn/releases/3.0.0-alpha.5/workbox-sw.js');
 
-workboxSW.router.registerRoute(/(.*)articles(.*)\.(?:png|gif|jpg)/,
-  workboxSW.strategies.cacheFirst({
+// TODO - remove local workbox libraries
+// I modified "workbox-sw.js" to use local library copies instead of the CDN
+// CDN is not always up to date. local library copies are built from Workbox source
+// importScripts('workbox-sw.js');
+
+if (workbox) {
+  console.log(`Yay! Workbox is loaded 🎉`);
+
+  workbox.precaching.precacheAndRoute([]);
+
+} else {
+  console.log(`Boo! Workbox didn't load 😬`);
+}
+
+workbox.routing.registerRoute(
+  /(.*)articles(.*)\.(?:png|gif|jpg)/,
+  workbox.strategies.cacheFirst({
     cacheName: 'images-cache',
-    cacheExpiration: {
-      maxEntries: 50
-    },
-    cacheableResponse: {statuses: [0, 200]}
+    plugins: [
+      new workbox.expiration.Plugin({
+        maxEntries: 50,
+        maxAgeSeconds: 30 * 24 * 60 * 60, // 30 Days
+      })
+    ]
   })
 );
 
-const articleHandler = workboxSW.strategies.networkFirst({
+const articleHandler = workbox.strategies.networkFirst({
   cacheName: 'articles-cache',
-  cacheExpiration: {
-    maxEntries: 50
-  }
+  plugins: [
+    new workbox.expiration.Plugin({
+      maxEntries: 50,
+    })
+  ]
 });
 
-workboxSW.router.registerRoute('/pages/article*.html', args => {
-  console.log(args);
+workbox.routing.registerRoute(/(.*)article(.*)\.html/, args => {
   return articleHandler.handle(args).then(response => {
     if (!response) {
       return caches.match('pages/offline.html');
@@ -47,14 +64,16 @@ workboxSW.router.registerRoute('/pages/article*.html', args => {
   });
 });
 
-const postHandler = workboxSW.strategies.cacheFirst({
+const postHandler = workbox.strategies.cacheFirst({
   cacheName: 'posts-cache',
-  cacheExpiration: {
-    maxEntries: 50
-  }
+  plugins: [
+    new workbox.expiration.Plugin({
+      maxEntries: 50,
+    })
+  ]
 });
 
-workboxSW.router.registerRoute('/pages/post*.html', args => {
+workbox.routing.registerRoute(/(.*)pages\/post(.*)\.html/, args => {
   return postHandler.handle(args).then(response => {
     if (response.status === 404) {
       return caches.match('pages/404.html');
