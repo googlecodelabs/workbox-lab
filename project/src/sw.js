@@ -23,24 +23,26 @@ if (workbox) {
 
   workbox.precaching.precacheAndRoute([]);
 
-  // Register route which caches all icons
-  workbox.routing.registerRoute(
-    /(.*)images\/icon(.*)/,
-    workbox.strategies.staleWhileRevalidate({
+  const handlers = {
+    articleHandler: workbox.strategies.networkFirst({
+      cacheName: 'articles-cache',
+      plugins: [
+        new workbox.expiration.Plugin({
+          maxEntries: 50,
+        })
+      ]
+    }),
+
+    iconHandler: workbox.strategies.staleWhileRevalidate({
       cacheName: 'icon-cache',
       plugins: [
         new workbox.expiration.Plugin({
           maxEntries: 5,
-          maxAgeSeconds: THIRTY_DAYS,
         })
       ],
-    })
-  );
+    }),
 
-  // Register route that caches article images
-  workbox.routing.registerRoute(
-    new RegExp('(.*)articles(.*)\.(?:png|gif|jpg)'),
-    workbox.strategies.cacheFirst({
+    imageHandler: workbox.strategies.cacheFirst({
       cacheName: 'images-cache',
       plugins: [
         new workbox.expiration.Plugin({
@@ -48,30 +50,34 @@ if (workbox) {
           maxAgeSeconds: THIRTY_DAYS,
         })
       ],
-    })
-  );
+    }),
 
-  // Handle article caching
-  const articleHandler = workbox.strategies.networkFirst({
-    cacheName: 'articles-cache',
-    plugins: [
-      new workbox.expiration.Plugin({
-        maxEntries: 50,
-      })
-    ]
-  });
-
-  // Cache article content
-  workbox.routing.registerRoute(
-    /(.*)article(.*)\.html/, 
-    args => articleHandler.handle(args).then(response => {
+    offlinePage: response => {
       if (!response) {
         return caches.match('pages/offline.html');
       } else if (response.status === 404) {
         return caches.match('pages/404.html');
       }
       return response;
-    })
+    }
+  }
+
+  // Register route which caches all icons
+  workbox.routing.registerRoute(
+    /(.*)images\/icon(.*)/,
+    args => handlers.iconHandler.handle(args)
+  );
+
+  // Register route that caches article images
+  workbox.routing.registerRoute(
+    new RegExp('(.*)articles(.*)\.(?:png|gif|jpg)'),
+    args => handlers.imageHandler.handle(args)
+  );
+
+  // Register route that caches artile html
+  workbox.routing.registerRoute(
+    /(.*)article(.*)\.html/, 
+    args => handlers.articleHandler.handle(args).then(response => handlers.offlinePage(response))
   );
 } else {
   console.log('CATASTROPHIC ERROR: WORKBOX FAILED TO INITIALIZE');
