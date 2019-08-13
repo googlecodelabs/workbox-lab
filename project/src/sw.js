@@ -52,14 +52,14 @@ if (workbox) {
       ],
     }),
 
-    offlinePage: response => {
-      if (!response) {
-        return caches.match('pages/offline.html');
-      } else if (response.status === 404) {
-        return caches.match('pages/404.html');
-      }
-      return response;
-    }
+    postHandler: workbox.strategies.cacheFirst({
+      cacheName: 'posts-cache',
+      plugins: [
+        new workbox.expiration.Plugin({
+          maxEntries: 50
+        })
+      ]
+    }),
   }
 
   // Register route which caches all icons
@@ -74,10 +74,28 @@ if (workbox) {
     args => handlers.imageHandler.handle(args)
   );
 
-  // Register route that caches artile html
+  // Register route that caches article html
   workbox.routing.registerRoute(
     /(.*)article(.*)\.html/, 
-    args => handlers.articleHandler.handle(args).then(response => handlers.offlinePage(response))
+    args => handlers.articleHandler.handle(args).then(response => {
+      if (!response) {
+        return caches.match('pages/offline.html');
+      } else if (response.status === 404) {
+        return caches.match('pages/404.html');
+      }
+      return response;
+    })
+  );
+
+  // Register route which caches app posts html
+  workbox.routing.registerRoute(
+    /(.*)post(.*)\.html/,
+    args => handlers.postHandler.handle(args)
+      .then(response => {
+        if (response.status === 404) return caches.match('pages/404.html');
+        return response;
+      })
+      .catch(() => caches.match('pages/offline.html'))
   );
 } else {
   console.log('CATASTROPHIC ERROR: WORKBOX FAILED TO INITIALIZE');
